@@ -17,7 +17,6 @@
     .row { display:flex; align-items:center; gap:10px; justify-content:space-between; }
     .btn { cursor:pointer; border:1px solid #374151; background:#111827; color:var(--text); padding:6px 10px; border-radius:10px; }
     .btn:active { transform:translateY(1px); }
-    .qr { display:block; width:100%; max-width:160px; border-radius:8px; margin-top:10px; }
     .note { font-size:12px; color:#9ca3af; margin-top:6px; }
     a { color:var(--accent); text-decoration:none; }
     footer { margin-top:16px; font-size:13px; color:#94a3b8; }
@@ -27,48 +26,52 @@
   <div class="wrap">
     <div class="card">
       <h1>Support KraiNode</h1>
-      <p>If this project helps ur DX, u can sponsor directly with crypto. Thanks 🙏</p>
+      <p>If this project helps ur DX, u can tip in crypto. Thank u 🙏</p>
 
       <div class="grid">
-        <!-- ETH / EVM -->
+        <!-- EVM (ETH, Base, Polygon, etc.) -->
         <div class="addr">
-          <h2>ETH / EVM</h2>
+          <h2>EVM (ETH / Base / Polygon)</h2>
           <div class="row">
-            <code id="eth">0xYOUR_ETH_ADDRESS_HERE</code>
-            <button class="btn" onclick="copy('eth')">Copy</button>
+            <code id="evm">0xCB6b5fbE4f9357D0d61eACA62CDD33D4F6C5e166</code>
+            <button class="btn" onclick="copy('evm')">Copy</button>
           </div>
-          <!-- Optional QR via third-party image generator -->
-          <img class="qr" alt="ETH QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=ethereum:0xYOUR_ETH_ADDRESS_HERE" />
-          <div class="note">Works for ETH mainnet and EVM chains (USDC/USDT preferred).</div>
+          <div class="note">Same address, pick the right network in ur wallet. Accepts any token from Ethereum/Base/Polygon chain</div>
         </div>
 
-        <!-- BTC -->
+        <!-- Solana -->
         <div class="addr">
-          <h2>BTC</h2>
+          <h2>Solana</h2>
           <div class="row">
-            <code id="btc">bc1qYOUR_BTC_ADDRESS_HERE</code>
-            <button class="btn" onclick="copy('btc')">Copy</button>
+            <code id="sol">G58nY7FSqZWptcBcYpo5LamupmhiznkZwe7GhcqKRB4Z</code>
+            <button class="btn" onclick="copy('sol')">Copy</button>
           </div>
-          <img class="qr" alt="BTC QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=bitcoin:bc1qYOUR_BTC_ADDRESS_HERE" />
-          <div class="note">Native segwit preferred.</div>
+          <div class="note">SOL or SPL tokens. Confirm the token mint if unsure.</div>
         </div>
 
-        <!-- USDT (TRC20) -->
+        <!-- Bitcoin -->
         <div class="addr">
-          <h2>USDT (TRC20)</h2>
+          <h2>Bitcoin</h2>
           <div class="row">
-            <code id="trc20">TYOUR_TRC20_ADDRESS_HERE</code>
-            <button class="btn" onclick="copy('trc20')">Copy</button>
+            <div>
+              <div class="note">Taproot (preferred)</div>
+              <code id="btctp">bc1p55gxmwqkexl6m8f8kzm7hczdrd2ezfyxsx68phdjy5644cydg0eqs0x2tq</code>
+            </div>
+            <button class="btn" onclick="copy('btctp')">Copy</button>
           </div>
-          <img class="qr" alt="TRC20 QR"
-               src="https://api.qrserver.com/v1/create-qr-code/?size=240x240&data=TYOUR_TRC20_ADDRESS_HERE" />
-          <div class="note">Low fees for small tips.</div>
+          <div class="row" style="margin-top:8px">
+            <div>
+              <div class="note">Native Segwit</div>
+              <code id="btcns">bc1qaw6jejwypzhpwzhlzk44z3amsvsy3h4ugjk7v4</code>
+            </div>
+            <button class="btn" onclick="copy('btcns')">Copy</button>
+          </div>
         </div>
       </div>
 
+      <p class="note">Only send on the correct chain. For stablecoins, please use well-known tokens on that chain.</p>
       <p class="note">Prefer fiat? Use the GitHub Sponsors button on the repo.</p>
+
       <footer>Built by <a href="https://twitter.com/chris__emma" target="_blank" rel="noopener">chris__emma</a></footer>
     </div>
   </div>
@@ -77,7 +80,11 @@
     async function copy(id){
       const el = document.getElementById(id);
       try { await navigator.clipboard.writeText(el.textContent.trim()); alert('Copied'); }
-      catch { const r = document.createRange(); r.selectNode(el); const s = window.getSelection(); s.removeAllRanges(); s.addRange(r); document.execCommand('copy'); s.removeAllRanges(); alert('Copied'); }
+      catch {
+        const r = document.createRange(); r.selectNode(el);
+        const s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+        document.execCommand('copy'); s.removeAllRanges(); alert('Copied');
+      }
     }
   </script>
 </body>
